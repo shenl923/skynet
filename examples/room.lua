@@ -1,4 +1,4 @@
-require 'utils'
+--require 'utils'
 local skynet = require "skynet"
 local size
 local player = {}

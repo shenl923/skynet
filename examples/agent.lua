@@ -1,8 +1,8 @@
 local json = require "json"
 
 local skynet = require "skynet"
-local netpack = require "netpack"
-local socket = require "socket"
+local netpack = require "skynet.netpack"
+local socket = require "skynet.socket"
 local sproto = require "sproto"
 local sprotoloader = require "sprotoloader"
 
@@ -59,6 +59,7 @@ skynet.register_protocol {
 	end,
 	dispatch = function (_, _, name, msg)
 		local room = skynet.uniqueservice("room")
+            print('fuck bug:', name, msg)
         if name == 'EnterRoom' then 
 	        skynet.call(room,"lua","enter", skynet.self(), client_fd)
 		elseif name == 'UpdateRoomVar' then 
@@ -74,7 +75,7 @@ function CMD.start(conf)
 	skynet.fork(function()
 		while true do
             send_package('heartbeat', 'heartbeat')
-			skynet.sleep(5000)
+			skynet.sleep(500)
 		end
 	end)
 	client_fd = fd
